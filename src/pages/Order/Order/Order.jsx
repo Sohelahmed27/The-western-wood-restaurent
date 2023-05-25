@@ -5,22 +5,32 @@ import { useState } from "react";
 import useMenu from "../../../Hooks/useMenu";
 
 import OrderTab from "../OrderTab";
+import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 
 
 const Order = () => {
-  
+  const categories = ['salad', 'pizza', 'soup','dessert', 'drinks']
+  const {category} =useParams()
+  const initialIndex = categories.indexOf(category)
+  console.log(category)
+ 
+  const [tabIndex, setTabIndex] =useState( initialIndex)
   const [menu] = useMenu([])
   
   const salad = menu.filter((item) => item.category === "salad");
   const pizza = menu.filter((item) => item.category === "pizza");
-  const desserts = menu.filter((item) => item.category === "dessert");
+  const dessert = menu.filter((item) => item.category === "dessert");
   const soup = menu.filter((item) => item.category === "soup");
   const drinks = menu.filter((item) => item.category === "drinks");
-  const [tabIndex, setTabIndex] =useState([])
+  
   
   return (
     <div>
+    <Helmet>
+      <title>Western Wood || Food Order</title>
+    </Helmet>
       <Cover title="Order Food" img={OrderImg}></Cover>
       <Tabs defaultIndex={tabIndex} onSelect={(index) =>setTabIndex(index)}>
   <TabList>
@@ -40,12 +50,12 @@ const Order = () => {
     <OrderTab items={soup}></OrderTab>
   </TabPanel>
   <TabPanel>
-    <OrderTab items={desserts}></OrderTab>
+    <OrderTab items={dessert}></OrderTab>
   </TabPanel>
   <TabPanel>
     <OrderTab items={drinks}></OrderTab>
   </TabPanel>
-  <TabPanel></TabPanel>
+ 
 </Tabs>
     </div>
   );
