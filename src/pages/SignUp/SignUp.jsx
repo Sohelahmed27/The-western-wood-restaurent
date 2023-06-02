@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
 import swal from "sweetalert";
 import { Link, useNavigate } from "react-router-dom";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -17,21 +18,35 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    
     createUser(data.email, data.password)
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
-        updateUserProfile(data.name, data.Photo_URL).then(() => {
-          console.log("User profile updated");
-          reset();
-          swal({
-            title: "Good job!",
-            text: "You successfully created account!",
-            icon: "success",
-          });
+        updateUserProfile(data.name, data.Photo_URL)
+        .then(() => {
+          const savedUser = {name:data.name, email:data.email}
+        
+         fetch('http://localhost:5000/users' ,{
+          method: 'POST',
+          headers: { 'content-type': 'application/json'},
+          body: JSON.stringify(savedUser)
+         })
+         .then(res=>res.json())
+         .then(data => {
+             if(data.insertedId){
+              reset();
+              swal({
+                title: "Good job!",
+                text: "You successfully created account!",
+                icon: "success",
+              });
+    
+              navigate("/");
+             }
+         })
 
-          navigate("/");
+         
         });
       })
       .catch((error) => console.log(error));
@@ -135,6 +150,7 @@ const SignUp = () => {
                   </small>
                 </p>
               </form>
+              <SocialLogin></SocialLogin>
             </div>
           </div>
         </div>
