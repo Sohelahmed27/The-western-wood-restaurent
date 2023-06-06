@@ -42,12 +42,12 @@ const [isAdmin] = useAdmin();
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/reservations">
+            <NavLink to="/dashboard/addItem">
               <FaUtensils></FaUtensils>Add Items
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/history">
+            <NavLink to="/dashboard/manageItem">
               <FaWallet></FaWallet>Manage Items
             </NavLink>
           </li>
