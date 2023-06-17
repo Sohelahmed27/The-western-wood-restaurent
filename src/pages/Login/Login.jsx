@@ -14,10 +14,10 @@ const Login = () => {
   const { signIn } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
 
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const from = location.state?.from?.path || '/'
+  const from = location.state?.from?.path || "/";
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -36,9 +36,8 @@ const Login = () => {
         text: "Login successful!",
         icon: "success",
       });
-      navigate(from, {replace:true})
+      navigate(from, { replace: true });
     });
-
   };
   const handleValidateCaptcha = (e) => {
     const user_captcha_value = e.target.value;
@@ -56,17 +55,10 @@ const Login = () => {
       <Helmet>
         <title>Western-Wood | Login</title>
       </Helmet>
-      <div className="hero min-h-screen bg-base-200">
+      <div className="hero  bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center md:w-1/2  lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-          </div>
-          <div className="card md:w-1/2 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card  w-full  shadow-2xl bg-base-100">
+            <h1 className="text-5xl font-bold text-center mt-10">Login now!</h1>
             <form onSubmit={handleLogin} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -104,8 +96,7 @@ const Login = () => {
               </div>
               <div className="form-control mt-6">
                 <input
-                                                 
-                  disabled={false}
+                  disabled={true}
                   className="btn btn-primary"
                   type="submit"
                   value="Login"

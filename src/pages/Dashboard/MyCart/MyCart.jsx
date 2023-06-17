@@ -18,9 +18,12 @@ const MyCart = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/carts/${item._id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://western-wood-restaurant-server.vercel.app/carts/${item._id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((response) => response.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -41,7 +44,9 @@ const MyCart = () => {
       <div className=" font-bold flex justify-between">
         <h3 className="text-3xl">Total Items: {cart.length}</h3>
         <h3 className="text-3xl">Total Price: {total.toFixed(2)}</h3>
-        <Link to="/dashboard/payment"><button className="btn btn-warning btn-sm">Pay</button></Link>
+        <Link to="/dashboard/payment">
+          <button className="btn btn-warning btn-sm">Pay</button>
+        </Link>
       </div>
       <div className="overflow-x-auto w-full">
         <table className="table w-full ">

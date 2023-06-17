@@ -18,35 +18,31 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    
     createUser(data.email, data.password)
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
-        updateUserProfile(data.name, data.Photo_URL)
-        .then(() => {
-          const savedUser = {name:data.name, email:data.email}
-        
-         fetch('http://localhost:5000/users' ,{
-          method: 'POST',
-          headers: { 'content-type': 'application/json'},
-          body: JSON.stringify(savedUser)
-         })
-         .then(res=>res.json())
-         .then(data => {
-             if(data.insertedId){
-              reset();
-              swal({
-                title: "Good job!",
-                text: "You successfully created account!",
-                icon: "success",
-              });
-    
-              navigate("/");
-             }
-         })
+        updateUserProfile(data.name, data.Photo_URL).then(() => {
+          const savedUser = { name: data.name, email: data.email };
 
-         
+          fetch("https://western-wood-restaurant-server.vercel.app/users", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(savedUser),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                reset();
+                swal({
+                  title: "Good job!",
+                  text: "You successfully created account!",
+                  icon: "success",
+                });
+
+                navigate("/");
+              }
+            });
         });
       })
       .catch((error) => console.log(error));
@@ -58,17 +54,12 @@ const SignUp = () => {
         <title>Western-Wood | Signup</title>
       </Helmet>
       <div>
-        <div className="hero min-h-screen bg-base-200">
-          <div className="hero-content flex-col lg:flex-row-reverse">
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl font-bold">Please Sign up!</h1>
-              <p className="py-6">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
-              </p>
-            </div>
-            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="hero  bg-base-200">
+          <div className="hero-content">
+            <div className="card w-full shadow-2xl bg-base-100">
+              <h1 className="text-3xl font-bold text-center mt-10">
+                Please Sign up!
+              </h1>
               <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                 <div className="form-control">
                   <label className="label">
@@ -130,7 +121,7 @@ const SignUp = () => {
                   />
                   {errors.password && (
                     <span className="text-red-600">
-                      Password must be six charecter
+                      Password must be six character
                     </span>
                   )}
                   {errors.password?.type === "pattern" && (

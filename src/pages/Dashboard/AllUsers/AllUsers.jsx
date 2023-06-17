@@ -12,18 +12,21 @@ const AllUsers = () => {
   });
 
   const handleMakeUser = (user) => {
-    fetch(`http://localhost:5000/users/admin/${user._id}`, {
-      method: "PATCH",
-    })
+    fetch(
+      `https://western-wood-restaurant-server.vercel.app/users/admin/${user._id}`,
+      {
+        method: "PATCH",
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        if (data.modifiedCount ) {
-          refetch()
+        if (data.modifiedCount) {
+          refetch();
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title:`${user.name} is Admin now!`,
+            title: `${user.name} is Admin now!`,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -32,7 +35,7 @@ const AllUsers = () => {
   };
 
   const handleDeleteUser = (user) => {
-    console.log(user)
+    console.log(user);
   };
   return (
     <div>
